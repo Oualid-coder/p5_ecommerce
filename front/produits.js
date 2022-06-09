@@ -12,7 +12,7 @@ const fetchIdProduit = async () => {
     await fetch(`http://localhost:3000/api/products/${productId}`)
         .then((res) => res.json())
         .then((data) => {
-            // console.log(data);
+            console.log(data);
             produit = data;
 
         })
@@ -78,6 +78,7 @@ const ajouterCanape = () => {
     });
 
     ajoutQuantite.addEventListener('change', (e) => {
+        
         if (e.target.value < 0) {
             Math.abs(null)
             e.stopPropagation()
@@ -95,11 +96,14 @@ const ajouterCanape = () => {
 
 
     boutonAjout.addEventListener('click', () => {
-        if (ajoutQuantite.value > 0) {
+        // si l'utilisateur n'indique pas de quantité ou de couleur rien ne sera envoyé au panier
+        if (ajoutQuantite.value > 0 && ajoutSelection.value) {
             let tabCanape = JSON.parse(localStorage.getItem("produit"));
             if (tabCanape == null) {
                 tabCanape = [];
+                delete produit.price;
                 tabCanape.push(produit);
+                
                 console.log(tabCanape);
                 localStorage.setItem("produit", JSON.stringify(tabCanape));
             }
@@ -107,6 +111,7 @@ const ajouterCanape = () => {
                 for (i = 0; i < tabCanape.length; i++) {
                     console.log('test');
                     if (tabCanape[i]._id == produit._id && tabCanape[i].couleur == ajoutSelection.value) {
+                        delete produit.price
                         console.log(ajoutSelection)
                         return (tabCanape[i].quantite++,
                             console.log('quantite++'),
@@ -115,6 +120,7 @@ const ajouterCanape = () => {
                     }
                 } for (i = 0; i < tabCanape.length; i++) {
                     if ((tabCanape[i]._id == produit._id && tabCanape[i].couleur != ajoutSelection.value) || tabCanape[i]._id != produit._id) {
+                        delete produit.price
                         return (
                             console.log('new'),
                             //envoie le nouveau produit dans le tab tabCanap et on récupere la dernière chose dans le local storage

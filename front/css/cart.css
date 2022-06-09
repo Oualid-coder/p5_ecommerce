@@ -107,6 +107,7 @@ h2 {
 	display: flex;
 	justify-content: center;
 	margin-top: 90px;
+	
 }
 
 .cart__order__form {
@@ -142,7 +143,7 @@ h2 {
 	justify-content: center;
 }
 
-.cart__order__form__submit input {
+.cart__order__form__submit button {
 	font-size: 22px;
 	border-radius: 40px;
 	border: 0;
@@ -151,10 +152,9 @@ h2 {
 	padding: 18px 28px;
 	cursor: pointer;
 	margin-top: 40px;
-
 }
 
-.cart__order__form__submit input:hover {
+.cart__order__form__submit button:hover {
 	box-shadow: rgb(42 18 206 / 90%) 0 0 22px 6px;
 }
 

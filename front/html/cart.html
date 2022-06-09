@@ -59,18 +59,18 @@
           <section id="cart__items">
             <!-- <article class="cart__item" data-id="{product-ID}" data-color="{product-color}">
               <div class="cart__item__img">
-                <img src="../images/product01.jpg" alt="Photographie d'un canapé">
+                <img id="image" src="" alt="Photographie d'un canapé">
               </div>
               <div class="cart__item__content">
                 <div class="cart__item__content__description">
-                  <h2>Nom du produit</h2>
-                  <p>Vert</p>
-                  <p>42,00 €</p>
+                  <h2 id="name"></h2>
+                  <p id="couleur"></p>
+                  <p class="leprix" ></p>
                 </div>
                 <div class="cart__item__content__settings">
                   <div class="cart__item__content__settings__quantity">
-                    <p>Qté : </p>
-                    <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42">
+                    <p id="quantite">Qté : </p>
+                    <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="">
                   </div>
                   <div class="cart__item__content__settings__delete">
                     <p class="deleteItem">Supprimer</p>
@@ -79,14 +79,17 @@
               </div>
             </article> -->
           </section>
+
+
           <div class="cart__price">
+
             <p>Total (<span id="totalQuantity">
 
               </span> articles) : <span id="totalPrice">
 
               </span> €</p>
           </div>
-          <div class="cart__order">
+          <div class="cart__order" id="afficherLeFormulaire">
             <form method="post" class="cart__order__form" id="formulaire">
               <div class="cart__order__form__question">
                 <label for="firstName">Prénom: </label>
@@ -115,8 +118,8 @@
                 <input type="email" name="email" id="email" required>
                 <p id="emailErrorMsg"></p>
               </div>
-              <div class="cart__order__form__submit" id="zebi">
-                <input type="submit" value="Commander !" id="order">
+              <div class="cart__order__form__submit" >
+                <button  class="cart__order__form__submit" type="submit" value="Commander !" id="order" >commander!</button>
               </div>
             </form>
           </div>
