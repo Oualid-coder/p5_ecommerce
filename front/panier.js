@@ -3,10 +3,10 @@ let recupData = JSON.parse(localStorage.getItem("produit"));
 
 
 const panierAffichage= async ()=>{
-
+  await recupData
   if (recupData){
 console.log(recupData)
-    await recupData
+    
 
     for (let Kanap of recupData) {
         let item = {
@@ -115,11 +115,11 @@ console.log(recupData)
 
             itemDelete.appendChild(deleteAccept);    
             
-            ajoutQuantite(kanap)
-            sommeCanap(kanap)
+            ajoutQuantite()
+            sommeCanap()
         })    
 
-        function ajoutQuantite (kanap) {
+        function ajoutQuantite () {
           
   console.log('pluplus');
 
@@ -130,7 +130,7 @@ console.log(recupData)
     element.addEventListener('change',(e) => {
 
       for (i = 0; i < recupData.length; i++) {
-        sommeCanap(kanap)
+        sommeCanap()
         if (recupData[i]._id == element.dataset.id && recupData[i].couleur == element.dataset.color) {
           
           let quantite = e.target.value;
@@ -151,7 +151,7 @@ console.log(recupData)
   });
 }
 
-async function sommeCanap  (kanap,ajoutQuantite)  {
+async function sommeCanap  (ajoutQuantite)  {
   
   
 await ajoutQuantite
@@ -174,10 +174,10 @@ let tabprix=[]
   console.log(tabprix)
   newStorage.forEach((canape) => {
     
-    canapePrix.push( kanap.price * canape.quantite);
+    // canapePrix.push( kanap.price * canape.quantite);
     qteTotal.push(canape.quantite);
-    // console.log(canapePrix);
-    // console.log(qteTotal);
+    console.log(canapePrix);
+    console.log(qteTotal);
 
 
 
@@ -288,6 +288,7 @@ form.email.addEventListener('change', (e) => {
     
   } else {
     document.getElementById('emailErrorMsg').innerHTML = "email non valide"
+    validation-=1
   }
 
 })
@@ -302,10 +303,11 @@ form.firstName.addEventListener('change', (e) => {
   if (testFname) {
     suivant.innerHTML = 'prenom valide'
     validation+=1
+    if(validation===5){button.disabled=false}
     console.log("validation"+validation)
   } else {
     suivant.innerHTML = 'prenom invalide'
-
+validation-=1
   }
 
 })
@@ -320,10 +322,11 @@ form.lastName.addEventListener('change', (e) => {
   if (testLname) {
     suivant.innerHTML = 'Nom valide'
     validation+=1
+    if(validation===5){button.disabled=false}
     console.log("validation"+validation)
   } else {
     suivant.innerHTML = 'Nom invalide'
-
+validation-=1
   }
 
 })
@@ -338,11 +341,12 @@ form.city.addEventListener('change', (e) => {
   if (testCity) {
     suivant.innerHTML = 'ville valide'
     validation+=1
+    if(validation===5){button.disabled=false}
     console.log("validation"+validation)
 
   } else {
     suivant.innerHTML = 'veuillez saisir une ville'
-
+validation-=1
   }
 
 })
@@ -367,12 +371,12 @@ form.address.addEventListener('change', (e) => {
 
   if (valid) {
     messgErr.innerHTML = "l'adresse est valide"
-    
+    if(validation===5){button.disabled=false}
     
 
   } else {
     messgErr.innerHTML = msg
-
+validation-=1
   }
  
 })

@@ -1,6 +1,6 @@
 let url = window.location.search
 // console.log(url);
-
+//Récupération de l'id qui se trouve dans notre URL
 let params = new URLSearchParams(url);
 const productId = params.get('productId')
 console.log(productId);
@@ -79,15 +79,18 @@ const ajouterCanape = () => {
 
     ajoutQuantite.addEventListener('change', (e) => {
         
-        if (e.target.value < 0) {
+        if (e.target.value < 0 && e.target.value>101) {
             Math.abs(null)
+            alert("vous devez saisir une quantité comprise entre 1 et 100")
             e.stopPropagation()
         }
 
         else {
             let quantite = e.target.value;
             produit.quantite = quantite;
+
             console.log(produit.quantite);
+
         }
 
         return;
@@ -96,34 +99,56 @@ const ajouterCanape = () => {
 
 
     boutonAjout.addEventListener('click', () => {
+
+        if(ajoutQuantite.value < 0 || ajoutQuantite.value > 100 && ajoutSelection.value){
+            alert("vous devez saisir une quantité comprise entre 1 et 100")
+        }else{if(!ajoutSelection.value){alert("choisir une couleur")}}
         // si l'utilisateur n'indique pas de quantité ou de couleur rien ne sera envoyé au panier
-        if (ajoutQuantite.value > 0 && ajoutSelection.value) {
+        if (ajoutQuantite.value > 0 && ajoutQuantite.value < 101 && ajoutSelection.value ) {
             let tabCanape = JSON.parse(localStorage.getItem("produit"));
             if (tabCanape == null) {
                 tabCanape = [];
                 delete produit.price;
+                delete produit.colors;
                 tabCanape.push(produit);
                 
                 console.log(tabCanape);
                 localStorage.setItem("produit", JSON.stringify(tabCanape));
+                alert('produits ajouter avec succés')
             }
             else if (tabCanape != null) {
+                
+                // si deux produits ayant le meme id et meme couleur on incrémente la quantité
                 for (i = 0; i < tabCanape.length; i++) {
                     console.log('test');
-                    if (tabCanape[i]._id == produit._id && tabCanape[i].couleur == ajoutSelection.value) {
+                    if (tabCanape[i]._id == produit._id && tabCanape[i].couleur == ajoutSelection.value ) {
                         delete produit.price
-                        console.log(ajoutSelection)
-                        return (tabCanape[i].quantite++,
-                            console.log('quantite++'),
+                        delete produit.colors
+                      
+                        let qte=tabCanape[i].quantite
+                        let val=ajoutQuantite.value
+                        console.log(parseInt(qte),parseInt(val))
+                        
+                        alert('produits ajouter avec succés')
+                        return (
+                            console.log('ajout'),
+                            
+                           
+                            tabCanape[i].quantite=parseInt(qte)+parseInt(val),
                             localStorage.setItem('produit', JSON.stringify(tabCanape)),
                             tabCanape = JSON.parse(localStorage.getItem("produit")))
+                            
                     }
-                } for (i = 0; i < tabCanape.length; i++) {
+                }  
+                // si la couleur est différente ou le produit est différent on injecte un nouveau produit ds le local
+                for (i = 0; i < tabCanape.length; i++) {
                     if ((tabCanape[i]._id == produit._id && tabCanape[i].couleur != ajoutSelection.value) || tabCanape[i]._id != produit._id) {
+                        alert('produits ajouter avec succés')
                         delete produit.price
+                        delete produit.colors
                         return (
                             console.log('new'),
-                            //envoie le nouveau produit dans le tab tabCanap et on récupere la dernière chose dans le local storage
+                            //envoie le nouveau produit dans le tab tabCanap 
                             tabCanape.push(produit),
                             localStorage.setItem('produit', JSON.stringify(tabCanape)),
                             tabCanape = JSON.parse(localStorage.getItem('produit'))

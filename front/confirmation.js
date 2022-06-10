@@ -29,6 +29,6 @@ const redirection = () => {
 
 
 
-setTimeout(redirection, 10000)
+setTimeout(redirection, 8000)
 
 setTimeout(replaceUrl, 6000)
